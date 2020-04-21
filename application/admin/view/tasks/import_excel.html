@@ -1,0 +1,91 @@
+{extend name="base/base" /}
+{block name="main"}
+<form id="form" method="post" class="layui-form layui-form-pane" action="{:url('/admin/importTasks')}">
+    
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="upload_zz">
+                <i class="layui-icon">&#xe67c;</i>导入excel
+            </button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#upload_zz' //绑定元素
+            ,url: "{:url('/admin/uploadTasks')}" //上传接口
+            ,accept: 'file' //普通文件
+            ,done: function(res){
+                //上传完毕回调
+                alert(res.errmsg);
+            }
+            ,error: function(){
+                //请求异常回调
+                alert("请求异常");
+            }
+        });
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#reg_date' //指定元素
+        });
+        laydate.render({
+            elem: '#end_date' //指定元素
+        });
+    });
+    layui.use(['form', 'jquery', 'formSelects'], function () {
+        var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+        formSelects.on('selectId', function (id, vals, val, isAdd, isDisabled) {
+            $('#group_id').val(layui.formSelects.value(id, 'val'));
+        }, true);
+        //表单验证
+        form.verify({
+            password: [
+                /^[\w\W]{6,25}$/
+                , '密码长度必须6到25位'
+            ]
+        });
+        //表单提交
+        form.on("submit(*)", function (data) {
+            var obj = $(this);
+            obj.attr("disabled", "disabled").addClass("layui-disabled");
+            $.post(data.form.action, data.field, function (data) {
+                var icon = 5;
+                if (data.code) {
+                    icon = 6;
+                }
+                layer.msg(data.msg, {icon: icon, time: 1500}, function () {   //提示的插件，可以使用alert代替
+                    if (data.code) {
+                        setTimeout(function () {
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 500);
+                    } else {
+                        $('#token').val(data.data.token);
+                        obj.removeAttr("disabled").removeClass("layui-disabled");
+                    }
+                });
+            }, 'json');
+            return false;
+        });
+        
+    });
+
+
+</script>
+{/block}

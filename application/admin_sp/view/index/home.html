@@ -1,0 +1,43 @@
+{extend name="base/base" /}
+{block name="css"}
+<link rel="stylesheet" href="/css/public.css">
+{/block}
+{block name="main"}
+<!-- 临时把个人资料写在首页 -->
+<div class="layui-fluid layadmin-homepage-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12 layui-col-md6 layui-col-lg4">
+            <div class="layui-card" style="width:300px;">
+                <div class="layui-card-header">个人资料</div>
+                <div class="layui-card-body ">
+                    <div class="company-logo layui-center childrenBody">
+                        <p><img src="{$info['pic_url']}" onerror="this.src='/images/logo.png'"></p>
+                        <p>{$info['name']}</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>系统编号：{$info['sys_id']}</p>
+                        <p>营业执照：<img src="{$info['license_pic']}" onerror="this.src='/images/logo.png'" width="100%"></p>
+                        <p>社会统一信用代码：{$info['social_code']}</p>
+                        <p>注册地址：{$info['reg_address']}</p>
+                        <p>经营地址：{$info['ope_address']}</p>
+                        <p>开户行名称：{$info['bank_name']}</p>
+                        <p>银行账户：{$info['bank_account']}</p>
+                        <p>联系人：{$info['contact_name']}</p>
+                        <p>联系电话：{$info['mobile']}</p>
+                        <p>税务分类：{$info['tax_class']}</p>
+                        <p>国民经济分类：{$info['eco_class']}</p>
+                        <p>公司规模分类：{$info['gm_class']}</p>
+                        <p>邮编：{$info['post_code']}</p>
+                        <p>客户经理：{$info['cus_name']}</p>
+                        <p>客户经理电话：{$info['cus_mobile']}</p>
+                    </div>
+                    <div>
+                        <p>如有信息错误需要修改，请联系客户经理</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

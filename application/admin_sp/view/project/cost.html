@@ -1,0 +1,53 @@
+{extend name="base/base" /}
+{block name="main"}
+<style>
+    .title{width: 130px;}
+.content{width: 200px; margin-left: 160px;}
+.layui-input{display: unset;width: 50%;}
+</style>
+<div style="width:80%;margin:20px auto; text-align:left;">{$company_name}客户{$item_date}月服务费结算清单</div>
+<div class="layui-form-item">
+    <label class="layui-form-label title">项目服务费：</label>
+    <div class="layui-input-block content">
+        <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_item_fee) ? $total_item_fee : 0}"
+            readonly />
+        <span>元</span>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label title">平台服务费：</label>
+    <div class="layui-input-block content">
+        <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_platform_fee) ? $total_platform_fee : 0}"
+            readonly />
+        <span>元</span>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label title">税费：</label>
+    <div class="layui-input-block content">
+        <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_taxes) ? $total_taxes : 0}"
+            readonly />
+        <span>元</span>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label title">总费用：</label>
+    <div class="layui-input-block content">
+        <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_fee) ? $total_fee : 0}"
+            readonly />
+        <span>元</span>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label title">未确认服务费总额：</label>
+    <div class="layui-input-block content">
+        <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_unconfirm_fee) ? $total_unconfirm_fee : 0}" readonly />
+        <span>元</span>
+    </div>
+</div>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+</script>
+{/block}

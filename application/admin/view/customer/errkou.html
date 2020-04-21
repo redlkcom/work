@@ -1,0 +1,102 @@
+{extend name="base/base" /}
+{block name="main"}
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>扣缴异常名录</legend>
+</fieldset>
+<form class="layui-form">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form">
+            <label class="layui-form-label">查询时间</label>
+            <div class="layui-input-inline">
+              <input type="text" class="layui-input" id="test3" >
+            </div>
+              <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger layui-btn-normal "  href="/admin/Customer/socialinsurance">返回</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger layui-btn-normal adduser_btn"  id="exportorder">导出</a>
+            </div><a id="dp" href=""   style="display:none; ;"><span id="fp"></span></a>
+        </form>
+    </blockquote>
+    <table id="usersList" lay-filter="usersList"></table>
+    
+</form>
+{/block}
+{block name="script"}
+<script>
+ 
+    layui.use(['form','layer','laydate','table','laytpl'],function(){
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer,
+            $ = layui.jquery,
+            laydate = layui.laydate,
+            laytpl = layui.laytpl,
+            table = layui.table;
+        //时间选择
+        var date=new Date();
+        var date = new Date; 
+        var year = date.getFullYear();
+        var month = date.getMonth();
+       
+        if(month == 0){
+            year = year -1;
+            month = 12; 
+        }
+        if(month<10){
+            month='0'+month;
+        }
+        var se_time=year+month;
+        ccc();
+        laydate.render({
+            elem: '#test3'
+            ,type: 'month'
+            ,format:'yyyyMM'
+            ,value:se_time
+            ,done: function (res) {
+                se_time=res;
+                ccc();
+            }
+        });
+        //用户列表
+        function ccc(){
+            var tableIns = table.render({
+            elem: '#usersList',
+            url : '/admin/customer/errkou?item_date='+se_time,
+            cellMinWidth : 95,
+            page : true,
+            limit:10,
+            limits:[5,10,15,20],
+            height : "full-125",
+            id:'usersListTable',
+            cols : [[
+
+                {field: 'id', title: '编号', width:60, align:"center"}, 
+                {field: 'month', title: '所属年月', width:150},
+                {field: 'realname', title: '姓名', width:150},
+                {field: 'id_number', title: '身份证号', align:'center'},
+                {field: 'organizename', title: '委托代理机构', align:'center'}, 
+            ]]
+        });
+        }
+
+        $('#exportorder').click(function(){ ///导出
+           
+                var url= '/admin/customer/errkou?item_date='+se_time;
+                
+                var req='?print=1&'///+  'key=' +$(".searchVal").val();
+                var path = url+req;
+                    //给a标签赋值
+                    $("#dp").attr("href", path);  
+                     
+                    $("#fp").click();
+                
+        });
+        //列表操作
+        table.on('tool(usersList)', function(obj){
+            var layEvent = obj.event, data = obj.data;
+            
+        });
+
+    })
+</script>
+{/block}

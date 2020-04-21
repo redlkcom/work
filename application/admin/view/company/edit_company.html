@@ -1,0 +1,229 @@
+{extend name="base/base" /}
+
+{block name="main"}
+<style>
+.xy{
+    width: 100px;
+}
+.layui-input-block {
+    margin-left: 130px;
+    min-height: 36px
+}
+</style> 
+<form id="form" method="post" class="layui-form layui-form-pane" action="{:url('/admin/editCompany')}"  enctype="multipart/form-data">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-block">
+            <input type="text" name="user_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.user_name)?$list.user_name:''}" {if condition="isset($list['id'])" }readonly {else /}
+            lay-verify="required|username"{/if}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.name)?$list.name:''}" lay-verify="required">
+        </div>
+    </div>
+    {if condition="!isset($list['id'])"}
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" placeholder="请输入" autocomplete="off" class="layui-input" value=""
+                   lay-verify="required|password">
+        </div>
+    </div>
+    {/if}
+    <div class="layui-form-item">
+        <label class="layui-form-label">信用代码</label>
+        <div class="layui-input-block">
+            <input type="text" name="social_code" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.social_code)?$list.social_code:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">注册地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="reg_address" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.reg_address)?$list.reg_address:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">经营地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="ope_address" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.ope_address)?$list.ope_address:''}" lay-verify="required">
+        </div>
+    </div>
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label">注册时间</label>
+        <div class="layui-input-block">
+            <input type="text" id="reg_date" name="reg_date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+                   value="{:isset($list.reg_date)?$list.reg_date:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">失效时间</label>
+        <div class="layui-input-block">
+            <input type="text" id="end_date" name="end_date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+                   value="{:isset($list.end_date)?$list.end_date:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">营业执照</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="upload_zz">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+        </div>
+    </div> -->
+    <div class="layui-form-item">
+        <label class="layui-form-label xy">企业综合服务协议</label>
+        <div class="layui-input-block">
+           <input type="file" name="xy_pic1" class="layui-input">
+           <!-- <img src="{:isset($list.xy_pic)?$list.xy_pic:''}"  width="200px" /> -->
+            {if $list.xy_pic==''}
+            {if $list.xieyi==1}
+            <a style="color: blue" href="javascript:;">暂无</a>
+            {else/}
+            <a style="color: blue" href="{$list.xieyi}" target="_blank">{$list.name}-企业综合服务协议</a>
+            {/if}
+            {else/}
+            <a style="color: blue" href="{:isset($list.xy_pic)?$list.xy_pic:''}" target="_blank">{$list.name}-企业综合服务协议</a>{/if}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开户行名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="bank_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.bank_name)?$list.bank_name:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">银行账户</label>
+        <div class="layui-input-block">
+            <input type="text" name="bank_account" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.bank_account)?$list.bank_account:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系人</label>
+        <div class="layui-input-block">
+            <input type="text" name="contact_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.contact_name)?$list.contact_name:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.mobile)?$list.mobile:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户经理</label>
+        <div class="layui-input-block">
+            <input type="text" name="contact_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.contact_name)?$list.contact_name:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户经理电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.mobile)?$list.mobile:''}" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否禁用</label>
+        <div class="layui-input-block">
+            {form:radio name="status" list="['0'=>'是','1'=>'否']" value="$list['status']"}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" value="{:isset($list['id'])?$list['id']:''}">
+            <input type="hidden" name="__token__" id="token" value="{$Request.token}"/>
+            <input type="submit"  class="layui-btn" lay-submit lay-filter="*" value="立即提交" /> 
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#upload_zz' //绑定元素
+            ,url: "{:url('/admin/upload')}" //上传接口
+            ,ext: 'jpg|png|gif'
+            ,done: function(res){
+            //上传完毕回调
+            }
+            ,error: function(){
+            //请求异常回调
+            }
+        });
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#reg_date' //指定元素
+        });
+        laydate.render({
+            elem: '#end_date' //指定元素
+        });
+    });
+    layui.use(['form', 'jquery', 'formSelects'], function () {
+        var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+        formSelects.on('selectId', function (id, vals, val, isAdd, isDisabled) {
+            $('#group_id').val(layui.formSelects.value(id, 'val'));
+        }, true);
+        //表单验证
+        form.verify({
+            password: [
+                /^[\w\W]{6,25}$/
+                , '密码长度必须6到25位'
+            ]
+        });
+        //表单提交
+        // form.on("submit(*)", function (data) {
+        //     var obj = $(this);
+        //     obj.attr("disabled", "disabled").addClass("layui-disabled");
+        //     $.post(data.form.action, data.field, function (data) {
+        //         var icon = 5;
+        //         if (data.code) {
+        //             icon = 6;
+        //         }
+        //         layer.msg(data.msg, {icon: icon, time: 1500}, function () {   //提示的插件，可以使用alert代替
+        //             if (data.code) {
+        //                 setTimeout(function () {
+        //                     //刷新父页面
+        //                     parent.location.reload();
+        //                 }, 500);
+        //             } else {
+        //                 $('#token').val(data.data.token);
+        //                 obj.removeAttr("disabled").removeClass("layui-disabled");
+        //             }
+        //         });
+        //     }, 'json');
+        //     return false;
+        // });
+        
+    });
+
+
+</script>
+{/block}

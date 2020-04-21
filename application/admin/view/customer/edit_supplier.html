@@ -1,0 +1,120 @@
+{extend name="base/base" /}
+{block name="main"}
+<form id="form" method="post" class="layui-form layui-form-pane" action="{:url('/admin/customer/edit_supplier')}">
+    <div class="layui-form-item">
+            <label class="layui-form-label">供应商全称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" id="title" class="layui-input" value="{:isset($list['name'])?$list['name']:''}" datatype="*" nullmsg="请输入供应商全称！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">简称</label>
+            <div class="layui-input-block">
+                <input type="text" name="shorname" id="shorname" class="layui-input" value="{:isset($list['shorname'])?$list['shorname']:''}" datatype="*" nullmsg="请输入简称！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">纳税识别号</label>
+            <div class="layui-input-block">
+                <input type="text" name="codes" id="codes" class="layui-input" value="{:isset($list['codes'])?$list['codes']:''}" datatype="*" nullmsg="请输入纳税识别号！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开户银行名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="bankname" id="bankname" class="layui-input" value="{:isset($list['bankname'])?$list['bankname']:''}" datatype="*" nullmsg="请输入开户银行名称！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">银行账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="bankaccount" id="bankaccount" class="layui-input" value="{:isset($list['bankaccount'])?$list['bankaccount']:''}" datatype="*" nullmsg="请输入银行账号！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类</label>
+            <div class="layui-input-block">
+                <input type="radio" name="contory"   value="社保"  checked >
+                社保 <input type="radio" name="contory"  value="商保">商保
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" id="address" class="layui-input" value="{:isset($list['address'])?$list['address']:''}" datatype="*" nullmsg="请输入地址！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" id="username" class="layui-input" value="{:isset($list['username'])?$list['username']:''}" datatype="*" nullmsg="请输入联系人！">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" id="phone" class="layui-input" value="{:isset($list['phone'])?$list['phone']:''}" datatype="*" nullmsg="请输入联系电话！">
+            </div>
+        </div>
+         <div class="layui-form-item">
+            <label class="layui-form-label">是否禁用</label>
+             <div class="layui-input-block"> 
+             <input type="radio" name="contory"   value="0"  checked >
+                是 <input type="radio" name="contory"  value="1">否 
+                
+            </div>
+        </div>    
+        <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" value="{:isset($list['id'])?$list['id']:''}"> 
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+</script>
+
+<script>
+//Demo
+layui.use(['form', 'jquery', 'formSelects'], function () {
+  var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+  
+  //监听提交
+  form.on("submit(*)", function (data) {
+            var obj = $(this);
+            obj.attr("disabled", "disabled").addClass("layui-disabled");
+            $.post(data.form.action, data.field, function (data) {
+                var icon = 5;
+                if (data.code) {
+                    icon = 6;
+                }
+                layer.msg(data.msg, {icon: icon, time: 1500}, function () {   //提示的插件，可以使用alert代替
+                    if (data.code) {
+                        setTimeout(function () {
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 500);
+                    } else {
+                      
+                        obj.removeAttr("disabled").removeClass("layui-disabled");
+                    }
+                });
+            }, 'json');
+            return false;
+        });
+    });
+</script>
+{/block}
+
+ 

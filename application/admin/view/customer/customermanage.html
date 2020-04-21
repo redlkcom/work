@@ -1,0 +1,116 @@
+﻿{extend name="base/base" /}
+{block name="main"}
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>社保城市列表</legend>
+</fieldset>
+<form id="form" method="post" class="layui-form layui-form-pane" action="">
+    <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger layui-btn-normal adduser_btn"  href="/admin/Customer/socialinsurance">返回</a>
+            </div>
+    <div class="layui-inline">
+    
+        <div class="layui-input-block"> <input type="hidden" name="up">
+            <button  class="layui-btn" lay-submit lay-filter="*" >
+                <i class="layui-icon">&#xe67c;</i>数据同步
+            </button>
+        </div>
+    </div>
+</form>
+ <table id="usersList" lay-filter="usersList"></table>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    // layui.use('upload', function(){
+    //     var upload = layui.upload;
+        
+    //     //执行实例
+    //     var uploadInst = upload.render({
+    //         elem: '#upload_zz' //绑定元素
+    //         ,url: "{:url('/admin/customermanage')}" //上传接口
+    //         ,accept: 'file' //普通文件
+    //         ,done: function(res){
+    //             //上传完毕回调
+    //             alert(res.errmsg);
+    //         }
+    //         ,error: function(){
+    //             //请求异常回调
+    //             alert("请求异常");
+    //         }
+    //     });
+    // });
+ 
+    layui.use(['form', 'jquery', 'table','formSelects','layer'  ,'laytpl'], function () {
+        var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+        layer = parent.layer === undefined ? layui.layer : top.layer,
+           
+            laytpl = layui.laytpl,
+            table = layui.table;
+
+
+        formSelects.on('selectId', function (id, vals, val, isAdd, isDisabled) {
+            $('#group_id').val(layui.formSelects.value(id, 'val'));
+        }, true);
+        //表单验证
+        form.verify({
+            password: [
+                /^[\w\W]{6,25}$/
+                , '密码长度必须6到25位'
+            ]
+        });
+        form.on('submit(*)', function(data){
+          console.log(data ) //当前容器的全部表单字段，名值对形式：{name: value}
+          return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //用户列表
+        var tableIns = table.render({
+            elem: '#usersList',
+            url : '/admin/customermanage.html',
+            cellMinWidth : 95,
+            page : true,
+            limit:10,
+            limits:[5,10,15,20],
+            height : "full-125",
+            id:'usersListTable',
+            cols : [[
+                {field: 'id', title: '编号', width:60, align:"center"},
+                {field: 'name', title: '城市名称', width:300},
+                {field: 'minsalary', title: '社保下限', align:'center'},
+                {field: 'maxsalary', title: '社保上限', align:'center'}, 
+                {field: 'gmin', title: '公积金下限', align:'center'},
+                {field: 'gmax', title: '公积金上限', align:'center'},
+                {field: 'accumulationBaseProportion', title: '公积金缴纳比例', align:'center'},    
+            ]]
+        });
+        //表单提交
+        form.on("submit(*)", function (data) {
+            var obj = $(this);
+            obj.attr("disabled", "disabled").addClass("layui-disabled");
+            $.post(data.form.action, data.field, function (data) {
+                var icon = 5;
+                if (data.code) {
+                    icon = 6;
+                }
+                layer.msg(data.msg, {icon: icon, time: 1500}, function () {   //提示的插件，可以使用alert代替
+                    if (data.code) {
+                        setTimeout(function () {
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 500);
+                    }  
+                });
+            }, 'json');
+            return false;
+        });
+        
+    });
+
+
+</script>
+{/block}

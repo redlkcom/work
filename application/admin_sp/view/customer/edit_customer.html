@@ -1,0 +1,96 @@
+{extend name="base/base" /}
+{block name="main"}
+<form id="form" method="post" class="layui-form layui-form-pane" action="{:url('/admin_sp/customer/editCompany')}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="user_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.username)?$list.username:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="realname" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.realname)?$list.realname:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="text" name="sex" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.sex)?$list.sex:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证号</label>
+        <div class="layui-input-block">
+            <input type="text" name="id_number" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.id_number)?$list.id_number:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="id_address" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.id_address)?$list.id_address:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">居住地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="real_address" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.real_address)?$list.real_address:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证正面</label>
+        <div class="layui-input-block">
+            <img src="{:isset($list.id_pic_a)?$list.id_pic_a:''}" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证反面</label>
+        <div class="layui-input-block">
+            <img src="{:isset($list.id_pic_b)?$list.id_pic_b:''}" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">银行卡号</label>
+        <div class="layui-input-block">
+            <input type="text" name="bank_card" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.bank_card)?$list.bank_card:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.mobile)?$list.mobile:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">绩效费</label>
+        <div class="layui-input-block">
+            <input type="text" name="performance_fee" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.performance_fee)?$list.performance_fee:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否认证</label>
+        <div class="layui-input-block">
+            <input type="text" name="performance_fee" placeholder="请输入" autocomplete="off" class="layui-input" value="{$list.is_name_auth == 0 ? '未认证' : '已认证'}" readonly>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+</script>
+{/block}

@@ -1,0 +1,42 @@
+{extend name="base/base" /}
+{block name="main"}
+ 
+    <div class="layui-form-item  ">
+    <div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/customer')}">
+                <i class="layui-icon">&#xe67c;</i>基本信息
+            </a>
+        </div>
+        <div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customermanage')}">
+                <i class="layui-icon">&#xe67c;</i>城市社保列表
+            </a>
+        </div>
+        <div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/mingce')}">
+                <i class="layui-icon">&#xe67c;</i>花名册
+            </a>
+        </div>
+        <div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/errorapply')}">
+                <i class="layui-icon">&#xe67c;</i>申报异常名录
+            </a>
+        </div><div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/fengniaoacc')}">
+                <i class="layui-icon">&#xe67c;</i>蜂鸟账单
+            </a>
+        </div><div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/errkou')}">
+                <i class="layui-icon">&#xe67c;</i>扣缴异常名录
+            </a>
+        </div><div class="layui-inline">  
+            <a  class="layui-btn" href="{:url('/admin/customer/seccu_error')}">
+                <i class="layui-icon">&#xe67c;</i>缴费成功名录
+            </a>
+        </div> 
+    </div>
+  
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /} 
+{/block}

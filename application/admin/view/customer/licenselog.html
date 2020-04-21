@@ -1,0 +1,66 @@
+{extend name="base/base" /}
+{block name="main"}
+<form class="layui-form">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form">
+               
+            <div class="layui-inline">
+               
+            </div><a id="dp" href=""   style="display:none; ;"><span id="fp"></span></a>
+        </form>
+    </blockquote>
+    <table id="usersList" lay-filter="usersList"></table>
+    
+</form>
+{/block}
+{block name="script"}
+<script>
+ 
+    layui.use(['form','layer','laydate','table','laytpl'],function(){
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer,
+            $ = layui.jquery,
+            laydate = layui.laydate,
+            laytpl = layui.laytpl,
+            table = layui.table;
+
+        //用户列表
+        var tableIns = table.render({
+            elem: '#usersList',
+            url : '/admin/customer/licenselog',
+            cellMinWidth : 95,
+            page : true,
+            limit:10,
+            limits:[5,10,15,20],
+            height : "full-125",
+            id:'usersListTable',
+            cols : [[
+
+                {field: 'id', title: '编号', width:60, align:"center"},  
+                {field: 'realname', title: '姓名', width:150},
+                {field: 'name', title: '日志', align:'center'}, 
+                {field: 'createtime', title: '时间', align:'center'}, 
+            ]]
+        });
+
+        $('#exportorder').click(function(){ ///导出
+           
+                var url= "{:url('admin/customer/licenselog')}";
+                
+                var req='?print=1&'///+  'key=' +$(".searchVal").val();
+                var path = url+req;
+                    //给a标签赋值
+                    $("#dp").attr("href", path);  
+                     
+                    $("#fp").click();
+                
+        });
+        //列表操作
+        table.on('tool(usersList)', function(obj){
+            var layEvent = obj.event, data = obj.data;
+            
+        });
+
+    })
+</script>
+{/block}

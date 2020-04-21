@@ -1,0 +1,51 @@
+{extend name="base/base" /}
+{block name="main"}
+<form id="form" method="post" class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务名称</label>
+        <div class="layui-input-block">
+                <input type="text" name="name" placeholder="请输入" autocomplete="off" class="layui-input"
+                    value="{:isset($list.name)?$list.name:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">创客姓名</label>
+        <div class="layui-input-block">
+                <input type="text" name="cus_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                    value="{:isset($list.cus_name)?$list.cus_name:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">预估报酬</label>
+        <div class="layui-input-block">
+                <input type="text" name="performance_fee" placeholder="请输入" autocomplete="off" class="layui-input"
+                    value="{:isset($list.performance_fee)?$list.performance_fee:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">实付报酬</label>
+        <div class="layui-input-block">
+            <input type="number" name="real_fee" placeholder="请输入" autocomplete="off" class="layui-input"
+                    value="{:isset($list.real_fee)?$list.real_fee:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+                <input type="text" name="status_zh" placeholder="请输入" autocomplete="off" class="layui-input"
+                    value="{:isset($list.status_zh)?$list.status_zh:''}" readonly>
+            
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+</script>
+{/block}

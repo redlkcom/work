@@ -1,0 +1,16 @@
+{extend name="base/base" /}
+{block name="main"}
+<form   class="layui-form layui-form-pane"  >
+{if $list}
+      {foreach $list as $obj}         
+    <div class="layui-form-item">
+       
+        <div class="layui-input-block">
+           <a href="{$obj['url']}">{$obj['filename']}</a>
+        </div>
+    </div>  
+    {/foreach}
+
+ {/if}
+</form>
+{/block} 

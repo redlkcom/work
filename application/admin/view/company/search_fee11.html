@@ -1,0 +1,93 @@
+{extend name="base/base" /}
+{block name="main"}
+<style>
+.title{width: 160px !important;border:none !important;background-color: #fff !important;}
+.content{width: 200px !important; margin-left: 160px!important;}
+.layui-input{display: unset!important;width: 50% !important;}
+</style>
+<form id="form" method="post" class="layui-form layui-form-pane" action="{:url('/admin/confirmTotalFee')}">
+    <div style="width:80%;margin:20px auto;">{$company_name}客户{$item_date}月服务费结算清单</div>
+    <div class="layui-form-item">
+        <label class="layui-form-label title">项目服务费：</label>
+        <div class="layui-input-block content">
+            <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_item_fee) ? $total_item_fee : 0}" readonly />
+            <span>元</span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label title">平台服务费：</label>
+        <div class="layui-input-block content">
+            <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_platform_fee) ? $total_platform_fee : 0}" readonly />
+            <span>元</span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label title">税费：</label>
+        <div class="layui-input-block content">
+            <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_taxes) ? $total_taxes : 0}" readonly />
+            <span>元</span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label title">总费用：</label>
+        <div class="layui-input-block content">
+            <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_fee) ? $total_fee : 0}" readonly />
+            <span>元</span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label title">未确认服务费总额：</label>
+        <div class="layui-input-block content">
+            <input type="text" autocomplete="off" class="layui-input" value="{:isset($total_unconfirm_fee) ? $total_unconfirm_fee : 0}" readonly />
+            <span>元</span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" value="{:isset($id)?$id:''}">
+            <input type="hidden" name="__token__" id="token" value="{$Request.token}" />
+            <button class="layui-btn" lay-submit lay-filter="*">确认收款</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+layui.use(['form', 'jquery', 'formSelects'], function () {
+    var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+    formSelects.on('selectId', function (id, vals, val, isAdd, isDisabled) {
+        $('#group_id').val(layui.formSelects.value(id, 'val'));
+    }, true);
+    //表单提交
+    form.on("submit(*)", function (data) {
+        var obj = $(this);
+        obj.attr("disabled", "disabled").addClass("layui-disabled");
+        $.post(data.form.action, data.field, function (data) {
+            var icon = 5;
+            if (data.code) {
+                icon = 6;
+            }
+            layer.msg(data.msg, { icon: icon, time: 1500 }, function () {   //提示的插件，可以使用alert代替
+                if (data.code) {
+                    setTimeout(function () {
+                        //刷新父页面
+                        parent.location.reload();
+                    }, 500);
+                } else {
+                    $('#token').val(data.data.token);
+                    obj.removeAttr("disabled").removeClass("layui-disabled");
+                }
+            });
+        }, 'json');
+        return false;
+    });
+
+});
+</script>
+{/block}

@@ -1,0 +1,156 @@
+{extend name="base/base" /}
+{block name="main"}
+<style>
+.layui-form-label{width: 130px !important;}
+.layui-input-block{margin-left: 130px !important;}
+</style>
+<form id="form" method="post" class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.name)?$list.name:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+                <input type="text" name="sex" placeholder="未填写" autocomplete="off" class="layui-input" value="{$list.sex == 0 ? '男' : '女'}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证号</label>
+        <div class="layui-input-block">
+            <input type="text" name="id_number" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.id_number)?$list.id_number:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">招工职位</label>
+        <div class="layui-input-block">
+            <input type="text" name="job_title" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.job_title)?$list.job_title:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">户口性质</label>
+        <div class="layui-input-block">
+            <input type="text" name="hk_character" placeholder="未填写" autocomplete="off" class="layui-input" value="{$list.hk_character == 0 ? '城镇户口' : '农村户口'}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">居住地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.address)?$list.address:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">合同开始日期</label>
+        <div class="layui-input-block">
+            <input type="text" name="agreement_start_date" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.agreement_start_date)?$list.agreement_start_date:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">合同结束日期</label>
+        <div class="layui-input-block">
+            <input type="text" name="agreement_end_date" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.agreement_end_date)?$list.agreement_end_date:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">工作城市</label>
+        <div class="layui-input-block">
+            <input type="text" name="work_city" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.work_city)?$list.work_city:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">社保城市</label>
+        <div class="layui-input-block">
+            <input type="text" name="insurance_city" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.insurance_city)?$list.insurance_city:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">社保基数</label>
+        <div class="layui-input-block">
+            <input type="text" name="insurance_base" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.insurance_base)?$list.insurance_base:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">社保起始月</label>
+        <div class="layui-input-block">
+            <input type="text" name="insurance_start_month" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.insurance_start_month)?$list.insurance_start_month:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公积金城市</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_city" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.fund_city)?$list.fund_city:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公积金基数</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_base" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.fund_base)?$list.fund_base:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公积金起始月</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_start_month" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.fund_start_month)?$list.fund_start_month:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公积金账户</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_account" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.fund_account)?$list.fund_account:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公积金比例</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_proportion" placeholder="未填写" autocomplete="off" class="layui-input"
+                   value="{:isset($list.fund_proportion)?$list.fund_proportion:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">补充公积金</label>
+        <div class="layui-input-block">
+            <input type="text" name="performance_fee" placeholder="未填写" autocomplete="off" class="layui-input" value="{$list.is_fund_extra == 0 ? '不缴纳' : '缴纳'}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">补充公积金比例</label>
+        <div class="layui-input-block">
+            <input type="text" name="fund_extra_proportion" placeholder="未填写" autocomplete="off" class="layui-input"
+                    value="{:isset($list.fund_extra_proportion)?$list.fund_extra_proportion:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <input type="text" name="remark" placeholder="未填写" autocomplete="off" class="layui-input"
+                    value="{:isset($list.remark)?$list.remark:''}" readonly>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+</script>
+{/block}

@@ -1,0 +1,63 @@
+{extend name="base/base" /}
+{block name="main"}
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>4402账户查询</legend>
+</fieldset>
+<form class="layui-form">
+    <blockquote class="layui-elem-quote quoteBox">
+        
+    </blockquote>
+    <table id="usersList" lay-filter="usersList"></table>
+    <!--操作-->
+    
+</form> 
+{/block}
+{block name="script"}
+{js href="/js/jquery.min.js" /}
+{css href="/jstree/themes/default/style.min.css"/} 
+<script> 
+
+    layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer,
+            $ = layui.jquery,
+            laydate = layui.laydate,
+            laytpl = layui.laytpl,
+            table = layui.table;
+ 
+
+        //新闻列表
+        var tableIns = table.render({
+            elem: '#usersList',
+            url: "{:url('account4402')}",
+            cellMinWidth: 95,
+            page: true,
+            limit: 10,
+            limits: [5, 10, 15, 20],
+            height: "full-125",
+            id: 'usersListTable',
+            cols: [[
+                {field: 'acctNo', title: '账号', width: 260, align: "center"},
+                {field: 'balance', title: '账号', width: 150}, 
+     
+            ]]
+        });
+
+        //搜索
+        $(".search_btn").on("click", function () {
+            console.log($(".starttime").val());
+            table.reload("usersListTable", {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                where: {
+                    key: $(".searchVal").val()  //搜索的关键字
+                }
+            })
+        }); 
+  
+ 
+   
+    })
+</script>
+{/block}

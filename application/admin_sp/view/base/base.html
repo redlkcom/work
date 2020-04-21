@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$site_config.value.title}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    {block name="css"}{/block}
+</head>
+<body>
+{block name="main"}{/block}
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript">
+    var maxTime = 600; // seconds
+    var time = maxTime;
+    $('body').on('keydown mousemove mousedown', function(e){
+        time = maxTime; // reset
+    });  var intervalId = setInterval(function(){
+        time--;
+        if(time <= 0) {
+           ShowInvalidLoginMessage();
+           clearInterval(intervalId);
+       }
+   }, 1000)
+   function ShowInvalidLoginMessage(){
+       // 清除cookie
+       // 提示用户
+       // 该干嘛干嘛
+       alert('您已超过10分钟无任何操作系统已自动退出！');
+       location.href="{:url('/admin_sp/login/logout')}";
+   }
+</script>
+{block name="script"}{/block}
+</body>
+</html>

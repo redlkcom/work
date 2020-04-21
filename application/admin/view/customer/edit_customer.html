@@ -1,0 +1,175 @@
+{extend name="base/base" /}
+{block name="main"}
+<style>
+    .layui-form-item .layui-form-label{
+        width: 120px;
+    }
+    .layui-input, .layui-textarea {
+        width: 96%;
+    }
+</style>
+<form id="form" method="post" class="layui-form layui-form-pane"   enctype="multipart/form-data">
+               
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="user_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.username)?$list.username:''}" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="realname" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.realname)?$list.realname:''}" readonly>
+        </div>
+    </div>
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="text" name="sex" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.sex)?$list.sex:''}" readonly>
+        </div>
+    </div> -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证号</label>
+        <div class="layui-input-block">
+            <input type="text" name="id_number" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.id_number)?$list.id_number:''}" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+         
+        <div class="layui-input-block">
+             
+            <img src="{:isset($list.id_pic_a)?$list.id_pic_a:''}"  width="200px" />
+            
+            <img src="{:isset($list.id_pic_b)?$list.id_pic_b:''}"  width="200px" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">银行名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="bank_name" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.bank_name)?$list.bank_name:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">银行卡号</label>
+        <div class="layui-input-block">
+            <input type="text" name="bank_card" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.bank_card)?$list.bank_card:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.mobile)?$list.mobile:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.email)?$list.email:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">学历</label>
+        <div class="layui-input-block">
+            <input type="text" name="edubg" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.edubg)?$list.edubg:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">毕业院校</label>
+        <div class="layui-input-block">
+            <input type="text" name="school" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.school)?$list.school:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">专业</label>
+        <div class="layui-input-block">
+            <input type="text" name="major" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.major)?$list.major:''}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">营业执照</label>
+        <div class="layui-input-block">
+            <input type="file" name="files" class="layui-input">
+            <img src="{if $list.license_pic==''}../Batch-upload/Business-license/{$list.id}.png{else/}{:isset($list.license_pic)?$list.license_pic:''}{/if}"  width="200px" />
+        </div>
+    </div>
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label">绩效费</label>
+        <div class="layui-input-block">
+            <input type="text" name="performance_fee" placeholder="请输入" autocomplete="off" class="layui-input"
+                   value="{:isset($list.performance_fee)?$list.performance_fee:''}" readonly>
+        </div>
+    </div> -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">工商注册状态</label>
+        <div class="layui-input-block">
+            <input type="text" name="circle_regist"   autocomplete="off" class="layui-input" value="{$list.circle_regist == 0 ? '否' : '是'}"  >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">注销凭证</label>
+        <div class="layui-input-block">
+            <input type="file" name="circle_closepic" class="layui-input">
+            <img src="{:isset($list.circle_closepic)?$list.circle_closepic:''}"  width="200px" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">工商注销</label>
+        <div class="layui-input-block">
+            <input type="radio" name="circle_close"     class="layui-radio" value="0" {if $list.circle_close == 0}checked {/if}>否
+            <input type="radio" name="circle_close"     class="layui-radio" value="1" {if $list.circle_close == 1}checked {/if}>是
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否认证</label>
+        <div class="layui-input-block">
+            <input type="text" name="is_name_auth" placeholder="请输入" autocomplete="off" class="layui-input" value="{$list.is_name_auth == 0 ? '未认证' : '已认证'}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否代缴</label>
+        <div class="layui-input-block">
+            <input type="text" name="is_substitute" placeholder="请输入" autocomplete="off" class="layui-input" value="{$list.is_substitute == 0 ? '未授权' : '已授权'}"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+         
+        <div class="layui-input-block"><input type="hidden" name="id" value="{$list.id}">
+            <input type="submit" value="提交"  class="layui-btn" />
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+{css href="/form-select/formSelects-v4.css" /}
+<script>
+    layui.config({
+        base: '/form-select/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+
+
+layui.use(['form', 'jquery', 'formSelects'], function () {
+  var formSelects = layui.formSelects, form = layui.form, $ = layui.jquery;
+  
+    
+})
+
+</script>
+{/block}
